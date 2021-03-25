@@ -13,7 +13,7 @@ output:
     highlight: github
 ---
 
-
+# Loaded libraries
 ```{r message=F}
 library(tidyverse)
 library(cmdstanr)
@@ -21,10 +21,11 @@ library(posterior)
 library(bayesplot)
 library(kableExtra)
 library(latex2exp)
-seed <- 3103
+seed <- 20200331
 set.seed(seed)
 ```
 
+Full information of the session can be found at the end of this document
 
 # Importing the data
 
@@ -56,7 +57,7 @@ We are using below a Bayesian version of the congeneric model described in the H
 This model is coded in Stan, compiled to C++. The code of the model is shown below.
 
 Loading and compiling the model
-```{r}
+```{r cache=T}
 stanmodel <- cmdstan_model('models/congeneric.stan') 
 ```
 
@@ -88,7 +89,7 @@ fit <- stanmodel$sample(
   seed = seed,
   chains = 4,
   parallel_chains = 4,
-  max_treedepth = 10
+  max_treedepth = 15
 )
 fit$save_object(file='models/fit.RDS')
 ```
@@ -168,13 +169,13 @@ table_datasets <- fit_summary_datasets %>%
 table_datasets$Dataset <- rep(datasets,2)
 
 kable(table_datasets,
-      caption='Summary values of the discrimination and difficulty level parameters for the datasets', 
+      caption='Summary values of the discrimination and easiness level parameters for the datasets', 
       booktabs=T,
       digits =3,
       format='html') %>% 
   kable_styling() %>% 
   pack_rows("Discrimination value (a)",1,12) %>% 
-  pack_rows("Difficulty level (b)",13,24)
+  pack_rows("Easiness level (b)",13,24)
 ```
 
 Creating a table for the models ability
@@ -204,10 +205,11 @@ mcmc_intervals(draws_a) +
        y='Dataset',
        title='Discrimination parameter distribution')
 ```
+
 ```{r message=F}
 mcmc_intervals(draws_b) +
   scale_y_discrete(labels=datasets)+
-  labs(x='Difficulty level parameter (b)',
+  labs(x='Easiness level parameter (b)',
        y='Dataset',
        title='Difficulty level parameter distribution')
 ```
@@ -233,4 +235,21 @@ mcmc_intervals(draws_theta) +
        title='Ability level parameter distribution')
 ```
 
-From this analysis we can see that most of the datasets used in SSL evaluations have low discrimination factor and 
+From this analysis we can see that most of the datasets used in SSL evaluations have low discrimination factor and high easiness levels. Datasets with very high easiness levels and low discrimination might be usesful to observe if the algorithm is correctly implemented but not to be used to compare different algorithms.
+
+From the ability levels of the SSL algorithms, we can observe that some groups of algorithms perform better than others but there is little difference between them.
+
+# Session information
+
+This document was compiled under the following session
+
+```{r}
+sessionInfo()
+```
+
+The following cmdstan version was used for compiling and sampling the model
+
+```{r}
+cmdstanr::cmdstan_version()
+```
+

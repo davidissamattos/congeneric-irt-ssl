@@ -26,12 +26,11 @@ model {
   b ~ normal(0, 1);
   a ~ normal(0,1);
   theta ~ normal(0,3);
-  sigma ~ normal(0,1);//
+  sigma ~ normal(0,1);//halfnormal
 
   //Linear gaussian model
-  //We have a minus in front of b so b becomes difficulty and not easyness
   for(i in 1:N){
-    mu[i] = -b[item[i]] + a[item[i]]*theta[p[i]];
+    mu[i] = b[item[i]] + a[item[i]]*theta[p[i]];
   }
   y ~ normal(mu, sigma);
 
@@ -42,7 +41,7 @@ generated quantities{
   vector[N] y_rep;
   for(i in 1:N){
     real mu;
-    mu = -b[item[i]] + a[item[i]]*theta[p[i]];
+    mu = b[item[i]] + a[item[i]]*theta[p[i]];
     log_lik[i] = normal_lpdf(y[i] | mu, sigma );
     y_rep[i] = normal_rng( mu, sigma);
   }

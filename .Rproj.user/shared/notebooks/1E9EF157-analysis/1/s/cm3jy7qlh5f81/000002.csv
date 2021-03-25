@@ -4,5 +4,5 @@
 "0","library(bayesplot)"
 "0","library(kableExtra)"
 "0","library(latex2exp)"
-"0","seed <- 3103"
+"0","seed <- 20200331"
 "0","set.seed(seed)"

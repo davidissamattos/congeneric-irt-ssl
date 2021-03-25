@@ -1,8 +1,0 @@
-"0","mcmc_intervals(draws_b) +"
-"0","  scale_y_discrete(labels=datasets)+"
-"0","  labs(x='Difficulty level parameter (b)',"
-"0","       y='Dataset',"
-"0","       title='Difficulty level parameter distribution')"
-"2","Scale for 'y' is already present. Adding another scale for 'y',
-which will replace the existing scale.
-"

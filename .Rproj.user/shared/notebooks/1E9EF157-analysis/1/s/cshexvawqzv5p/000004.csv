@@ -1,9 +1,0 @@
-"0","d %>% group_by(Dataset) %>% "
-"0","  summarise('Mean accuracy'=mean(Accuracy)) %>% "
-"0","  kable(caption = 'Average accuracy for each dataset',"
-"0","        booktabs=T,"
-"0","        digits=3,"
-"0","        format='html') %>% "
-"0","  kable_styling()"
-"2","`summarise()` ungrouping output (override with `.groups` argument)
-"
