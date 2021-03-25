@@ -1,0 +1,26 @@
+{
+    "id": "E960528B",
+    "path": "~/Google Drive/Studies/PhD/papers/irt-datasets-teodor/models/congeneric.stan",
+    "project_path": "models/congeneric.stan",
+    "type": "stan",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1616658977355.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "28,34",
+        "scrollLine": "15"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1616675426,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1616675426063,
+    "read_only": false,
+    "read_only_alternatives": []
+}

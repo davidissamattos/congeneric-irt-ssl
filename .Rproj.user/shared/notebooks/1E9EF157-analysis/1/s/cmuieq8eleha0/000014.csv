@@ -1,0 +1,8 @@
+"0","mcmc_intervals(draws_theta) +"
+"0","  scale_y_discrete(labels=models)+"
+"0","  labs(x=unname(TeX(""Ability level ($\\theta$)"")),"
+"0","       y='SSL algorithm',"
+"0","       title='Ability level parameter distribution')"
+"2","Scale for 'y' is already present. Adding another scale for 'y',
+which will replace the existing scale.
+"

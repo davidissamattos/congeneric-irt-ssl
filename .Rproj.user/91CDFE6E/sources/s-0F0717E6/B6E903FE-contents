@@ -1,0 +1,236 @@
+---
+title: "SSL dataset comparisons with the congeneric IRT model"
+author: "Fredriksson, T., Mattos, D.I., Bosch, J. and Olsson, H. H."
+date: "`r Sys.Date()`"
+knit: (function(input_file, encoding) {
+  out_dir <- 'docs';
+  rmarkdown::render(input_file,
+ encoding=encoding,
+ output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+
+```{r message=F}
+library(tidyverse)
+library(cmdstanr)
+library(posterior)
+library(bayesplot)
+library(kableExtra)
+library(latex2exp)
+seed <- 3103
+set.seed(seed)
+```
+
+
+# Importing the data
+
+```{r message=F, warning=F}
+d <- read_csv('data/full_data.csv') %>% 
+  rename("Accuracy"=value) %>% 
+  select(-X1) %>% 
+  mutate(Accuracy = Accuracy/100) #between 0 and 1
+```
+
+Obtaining a numerical index for the dataset and the model
+
+```{r}
+#convert to factor
+d$Model <- as.factor(d$Model)
+d$Dataset <- as.factor(d$Dataset)
+#convert to integer
+d$ModelIndex <- as.numeric(d$Model)
+d$DatasetIndex <- as.numeric(d$Dataset)
+#vector with the names in order
+models <- levels(d$Model)
+datasets <- levels(d$Dataset)
+```
+
+# IRT Bayesian congeneric model in Stan
+
+We are using below a Bayesian version of the congeneric model described in the Handbook of Item Response Theory Vol.1 chapter 10.
+
+This model is coded in Stan, compiled to C++. The code of the model is shown below.
+
+Loading and compiling the model
+```{r}
+stanmodel <- cmdstan_model('models/congeneric.stan') 
+```
+
+Code of the model
+```{r}
+stanmodel$print()
+```
+
+
+## Standata
+Here we create the list of data that will be passed to Stan
+
+```{r}
+standata <- list(
+  N = nrow(d),
+  y = d$Accuracy,
+  p = d$ModelIndex,
+  Np = length(models),
+  item = d$DatasetIndex,
+  Nitem = length(datasets)
+)
+```
+
+## Running the model
+
+```{r eval=F}
+fit <- stanmodel$sample(
+  data= standata,
+  seed = seed,
+  chains = 4,
+  parallel_chains = 4,
+  max_treedepth = 10
+)
+fit$save_object(file='models/fit.RDS')
+```
+
+To load the fitted model to save time in compiling this document
+```{r}
+fit<-readRDS('models/fit.RDS')
+```
+
+
+## Checks
+
+Posterior draws
+```{r cache=T}
+draws_a <- fit$draws('a')
+draws_b <- fit$draws('b')
+draws_theta <- fit$draws('theta')
+draws_sigma <- fit$draws('sigma')
+```
+
+### Traceplots
+
+Traceplots for a
+```{r cache=T}
+mcmc_trace(draws_a)
+```
+
+Traceplots for b
+```{r cache=T}
+mcmc_trace(draws_b)
+```
+
+Traceplots for theta
+```{r cache=T}
+mcmc_trace(draws_theta)
+```
+
+Traceplot for sigma
+```{r cache=T}
+mcmc_trace(draws_sigma)
+```
+
+## Posterior predictive
+
+```{r cache=T}
+y <- standata$y
+yrep <- posterior::as_draws_matrix(fit$draws('y_rep'))
+```
+
+
+```{r cache=T}
+ppc_intervals_grouped(y, yrep, group=d$Dataset)
+```
+
+The model seems to be good at predicting the fitted data by dataset. The observed values are in the bounds of the predictive posterior values. 
+
+Since there are no diverging iterations, the rhat and neff are good, the traceplots do not indicate any diverging chain and the model fits well the observed data we can proceed with the analysis.
+
+# Results
+
+Let's first get a summary table of the estimated values of the model with 90% credible interval
+
+```{r}
+fit_summary_datasets <- fit$summary(c('a','b'))
+fit_summary_models <- fit$summary(c('theta'))
+fit_summary_sigma <- fit$summary(c('sigma'))
+```
+
+Creating a table for the datasets
+```{r}
+table_datasets <- fit_summary_datasets %>% 
+  select(Dataset=variable, 
+         Median=median,
+         'CI 5%'=q5,
+         'CI 95%'=q95)
+
+table_datasets$Dataset <- rep(datasets,2)
+
+kable(table_datasets,
+      caption='Summary values of the discrimination and difficulty level parameters for the datasets', 
+      booktabs=T,
+      digits =3,
+      format='html') %>% 
+  kable_styling() %>% 
+  pack_rows("Discrimination value (a)",1,12) %>% 
+  pack_rows("Difficulty level (b)",13,24)
+```
+
+Creating a table for the models ability
+```{r message=F}
+table_models <- fit_summary_models %>% 
+  select(Model=variable, 
+         Median=median,
+         'CI 5%'=q5,
+         'CI 95%'=q95)
+
+table_models$Model <- models
+
+kable(table_models,
+      caption='Summary values of the ability level of the SSL models', 
+      booktabs=T,
+      digits =3,
+      format='html') %>% 
+  kable_styling() 
+```
+
+We can also get a representative figure of these tables 
+
+```{r message=F}
+mcmc_intervals(draws_a) +
+  scale_y_discrete(labels=datasets)+
+  labs(x='Discrimination parameter (a)',
+       y='Dataset',
+       title='Discrimination parameter distribution')
+```
+```{r message=F}
+mcmc_intervals(draws_b) +
+  scale_y_discrete(labels=datasets)+
+  labs(x='Difficulty level parameter (b)',
+       y='Dataset',
+       title='Difficulty level parameter distribution')
+```
+
+We can observe the actual average values of accuracy for each one of these datasets
+
+```{r}
+d %>% group_by(Dataset) %>% 
+  summarise('Mean accuracy'=mean(Accuracy)) %>% 
+  kable(caption = 'Average accuracy for each dataset',
+        booktabs=T,
+        digits=3,
+        format='html') %>% 
+  kable_styling()
+```
+
+
+```{r message=F}
+mcmc_intervals(draws_theta) +
+  scale_y_discrete(labels=models)+
+  labs(x=unname(TeX("Ability level ($\\theta$)")),
+       y='SSL algorithm',
+       title='Ability level parameter distribution')
+```
+
+From this analysis we can see that most of the datasets used in SSL evaluations have low discrimination factor and 

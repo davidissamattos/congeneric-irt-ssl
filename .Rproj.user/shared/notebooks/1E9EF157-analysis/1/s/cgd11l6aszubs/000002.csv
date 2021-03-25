@@ -1,0 +1,2 @@
+"0","y <- standata$y"
+"0","yrep <- fit$draws('y_rep')"

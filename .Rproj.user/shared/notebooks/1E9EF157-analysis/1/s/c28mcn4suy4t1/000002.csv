@@ -1,0 +1,4 @@
+"0","d <- read_csv('data/full_data.csv') %>% "
+"0","  rename(""Accuracy""=value) %>% "
+"0","  select(-X1) %>% "
+"0","  mutate(Accuracy = Accuracy/100) #between 0 and 1"

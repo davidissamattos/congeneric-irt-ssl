@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>body{background-color:white;}</style>
+<script src="lib/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lib/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="lib/kePrint-0.0.1/kePrint.js"></script>
+<link href="lib/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+</head>
+<body>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>Summary values of the model parameters for the datasets</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Dataset </th>
+   <th style="text-align:right;"> Median </th>
+   <th style="text-align:right;"> CI 5% </th>
+   <th style="text-align:right;"> CI 95% </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr grouplength="12"><td colspan="4" style="border-bottom: 1px solid;"><strong>Discrimination value (a)</strong></td></tr>
+<tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> 20news </td>
+   <td style="text-align:right;"> 0.016 </td>
+   <td style="text-align:right;"> 0.004 </td>
+   <td style="text-align:right;"> 0.049 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> cifar </td>
+   <td style="text-align:right;"> 0.004 </td>
+   <td style="text-align:right;"> 0.000 </td>
+   <td style="text-align:right;"> 0.019 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> corpus </td>
+   <td style="text-align:right;"> 0.004 </td>
+   <td style="text-align:right;"> 0.000 </td>
+   <td style="text-align:right;"> 0.019 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> digits </td>
+   <td style="text-align:right;"> 0.005 </td>
+   <td style="text-align:right;"> 0.000 </td>
+   <td style="text-align:right;"> 0.022 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> fashionmnist </td>
+   <td style="text-align:right;"> 0.004 </td>
+   <td style="text-align:right;"> 0.000 </td>
+   <td style="text-align:right;"> 0.019 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> german </td>
+   <td style="text-align:right;"> 0.001 </td>
+   <td style="text-align:right;"> 0.000 </td>
+   <td style="text-align:right;"> 0.009 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> iris </td>
+   <td style="text-align:right;"> 0.005 </td>
+   <td style="text-align:right;"> 0.000 </td>
+   <td style="text-align:right;"> 0.022 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> mnist </td>
+   <td style="text-align:right;"> 0.011 </td>
+   <td style="text-align:right;"> 0.002 </td>
+   <td style="text-align:right;"> 0.037 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> musk </td>
+   <td style="text-align:right;"> 0.163 </td>
+   <td style="text-align:right;"> 0.065 </td>
+   <td style="text-align:right;"> 0.409 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> ohsumed </td>
+   <td style="text-align:right;"> 0.195 </td>
+   <td style="text-align:right;"> 0.077 </td>
+   <td style="text-align:right;"> 0.487 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> reuters </td>
+   <td style="text-align:right;"> 0.484 </td>
+   <td style="text-align:right;"> 0.190 </td>
+   <td style="text-align:right;"> 1.206 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> wine </td>
+   <td style="text-align:right;"> 0.005 </td>
+   <td style="text-align:right;"> 0.000 </td>
+   <td style="text-align:right;"> 0.021 </td>
+  </tr>
+  <tr grouplength="12"><td colspan="4" style="border-bottom: 1px solid;"><strong>Difficulty level (b)</strong></td></tr>
+<tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> 20news </td>
+   <td style="text-align:right;"> 0.852 </td>
+   <td style="text-align:right;"> 0.837 </td>
+   <td style="text-align:right;"> 0.861 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> cifar </td>
+   <td style="text-align:right;"> 0.997 </td>
+   <td style="text-align:right;"> 0.988 </td>
+   <td style="text-align:right;"> 1.001 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> corpus </td>
+   <td style="text-align:right;"> 0.578 </td>
+   <td style="text-align:right;"> 0.569 </td>
+   <td style="text-align:right;"> 0.582 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> digits </td>
+   <td style="text-align:right;"> 0.990 </td>
+   <td style="text-align:right;"> 0.981 </td>
+   <td style="text-align:right;"> 0.995 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> fashionmnist </td>
+   <td style="text-align:right;"> 0.997 </td>
+   <td style="text-align:right;"> 0.988 </td>
+   <td style="text-align:right;"> 1.001 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> german </td>
+   <td style="text-align:right;"> 0.594 </td>
+   <td style="text-align:right;"> 0.590 </td>
+   <td style="text-align:right;"> 0.597 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> iris </td>
+   <td style="text-align:right;"> 0.993 </td>
+   <td style="text-align:right;"> 0.983 </td>
+   <td style="text-align:right;"> 0.998 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> mnist </td>
+   <td style="text-align:right;"> 0.978 </td>
+   <td style="text-align:right;"> 0.964 </td>
+   <td style="text-align:right;"> 0.985 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> musk </td>
+   <td style="text-align:right;"> 0.639 </td>
+   <td style="text-align:right;"> 0.548 </td>
+   <td style="text-align:right;"> 0.689 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> ohsumed </td>
+   <td style="text-align:right;"> 0.398 </td>
+   <td style="text-align:right;"> 0.289 </td>
+   <td style="text-align:right;"> 0.456 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> reuters </td>
+   <td style="text-align:right;"> 0.317 </td>
+   <td style="text-align:right;"> 0.051 </td>
+   <td style="text-align:right;"> 0.462 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left; padding-left:  2em;" indentlevel="1"> wine </td>
+   <td style="text-align:right;"> 0.993 </td>
+   <td style="text-align:right;"> 0.984 </td>
+   <td style="text-align:right;"> 0.998 </td>
+  </tr>
+</tbody>
+</table> <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [["$","$"]]}})</script><script async src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

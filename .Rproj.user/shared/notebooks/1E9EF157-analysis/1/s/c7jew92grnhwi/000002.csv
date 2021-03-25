@@ -1,0 +1,8 @@
+"0","standata <- list("
+"0","  N = nrow(d),"
+"0","  y = d$Accuracy,"
+"0","  p = d$ModelIndex,"
+"0","  Np = length(models),"
+"0","  item = d$DatasetIndex,"
+"0","  Nitem = length(datasets)"
+"0",")"

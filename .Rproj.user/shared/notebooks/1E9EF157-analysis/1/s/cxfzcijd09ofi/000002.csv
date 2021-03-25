@@ -1,0 +1,4 @@
+"0","draws_a <- fit$draws('a')"
+"0","draws_b <- fit$draws('b')"
+"0","draws_theta <- fit$draws('theta')"
+"0","draws_sigma <- fit$draws('sigma')"
