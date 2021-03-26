@@ -1,5 +1,5 @@
 ---
-title: "SSL dataset comparisons with the congeneric IRT model"
+title: "Assessing the Suitability of Semi-Supervised Learning Datasets with Item Response Theory"
 author: "Fredriksson, T., Mattos, D.I., Bosch, J. and Olsson, H. H."
 date: "`r Sys.Date()`"
 knit: (function(input_file, encoding) {
@@ -12,6 +12,8 @@ output:
     theme: cayman
     highlight: github
 ---
+
+# Introduction
 
 # Loaded libraries
 ```{r message=F}
@@ -211,7 +213,7 @@ mcmc_intervals(draws_b) +
   scale_y_discrete(labels=datasets)+
   labs(x='Easiness level parameter (b)',
        y='Dataset',
-       title='Difficulty level parameter distribution')
+       title='Easiness level parameter distribution')
 ```
 
 We can observe the actual average values of accuracy for each one of these datasets
